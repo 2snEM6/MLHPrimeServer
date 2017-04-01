@@ -2,7 +2,7 @@ from flask import Flask, json
 from flask import request
 from flask import json
 from flask import make_response
-import request as req
+import requests as req
 
 app = Flask(__name__)
 
@@ -23,7 +23,7 @@ def handle():
     response_data = {"displayText": 'this is text displayed'}
     speech = ""
     if request.method == 'POST' and request.headers['Content-Type'] == 'application/json':
-        body = json.dumps(request.json)
+        body = request.json
         action = body['result']['action']
 
         if action == 'SEARCH':
@@ -44,9 +44,10 @@ def handle():
                         symbols = symbols + ',' + params[key]
 
             resp = req.get(BASE_URL + GET_QUOTE, params={'key': KEY, 'symbols': symbols})
+            json_response = resp.json()
 
             for param in params:
-                speech = speech + " the " + param + " is " + resp[param]
+                speech = speech + " the " + param + " is " + rest.text
 
     response_data["speech"] = speech
     js = json.dumps(response_data)
