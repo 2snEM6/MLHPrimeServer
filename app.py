@@ -19,7 +19,6 @@ def hello():
 
 @app.route("/webhook", methods=['POST'])
 def handle():
-    response_data = {"displayText": 'this is text displayed'}
     speech = ""
     if request.method == 'POST' and request.headers['Content-Type'] == 'application/json':
         body = request.json
@@ -46,7 +45,7 @@ def handle():
             json_response = resp.json()
 
             for unit_resp in json_response['results']:
-                speech = speech + " For {} ".format(unit_resp['name'])
+                speech = speech + "For {} ".format(unit_resp['name'])
                 for qs_elem in qs:
                     if qs_elem is not None and qs_elem != "":
                         speech = speech + " the {} is {}".format(qs_elem, unit_resp[qs_elem])
