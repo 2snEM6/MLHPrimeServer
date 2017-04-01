@@ -17,6 +17,10 @@ def hello():
     return 'Hello, world!'
 
 
+def isHistorical(body):
+    return 'date' in body['result']['parameters'] and body['result']['parameters']['date'] != ""
+
+
 @app.route("/webhook", methods=['POST'])
 def handle():
     speech = ""
@@ -46,7 +50,7 @@ def handle():
 
         for unit_resp in json_response['results']:
             speech = speech + " For {} ".format(unit_resp['name'])
-            qs = list(filter((lambda x: x != ""),qs))
+            qs = list(filter((lambda x: x != ""), qs))
             if len(qs) == 0:
                 speech = 'What do you want to know about {}'.format(unit_resp['name'])
             else:
@@ -54,6 +58,8 @@ def handle():
                     qs_elem_text = qs_elem
                     if qs_elem == 'lastPrice':
                         qs_elem_text = "last price"
+                    if qs_elem == 'netChange':
+                        qs_elem_text = "net change"
                     if qs_elem is not None and qs_elem != "":
                         speech = speech + " the {} is {}".format(qs_elem_text, unit_resp[qs_elem])
 
