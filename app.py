@@ -47,7 +47,7 @@ def handle():
         for unit_resp in json_response['results']:
             speech = speech + " For {} ".format(unit_resp['name'])
             if len(qs) == 0:
-                speech = 'What do you want about {}'.format(unit_resp)
+                speech = 'What do you want to know about {}'.format(unit_resp)
             else:
                 for qs_elem in qs:
                     qs_elem_text = qe_elem
