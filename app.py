@@ -22,6 +22,7 @@ def handle():
     speech = ""
     if request.method == 'POST' and request.headers['Content-Type'] == 'application/json':
         body = request.json
+        print(body)
         action = body['result']['action']
 
         if action == 'SEARCH':
