@@ -21,8 +21,8 @@ def hello():
 @app.route("/webhook", methods=['POST'])
 def handle():
     data = {
-        'hello': 'world',
-        'number': 3
+        "speech": 'hola',
+        "displayText": 'holadios',
     }
     js = json.dumps(data)
     r = make_response(js)
