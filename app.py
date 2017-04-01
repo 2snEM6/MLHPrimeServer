@@ -19,7 +19,6 @@ def hello():
 
 @app.route("/webhook", methods=['POST'])
 def handle():
-
     response_data = {"displayText": 'this is text displayed'}
     speech = ""
     if request.method == 'POST' and request.headers['Content-Type'] == 'application/json':
@@ -46,8 +45,10 @@ def handle():
             resp = req.get(BASE_URL + GET_QUOTE, params={'key': KEY, 'symbols': symbols})
             json_response = resp.json()
 
-            for param in params:
-                speech = speech + " the " + param + " is " + resp.text
+            for unit_resp in json_response['results']:
+                speech = speech + " For " + unit_resp['name'] + " "
+                for qs_elem in qs:
+                    speech = speech + " the " + qs_elem + " is " + unit_resp[qs_elem]
 
     response_data["speech"] = speech
     js = json.dumps(response_data)
