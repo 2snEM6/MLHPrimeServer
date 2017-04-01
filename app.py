@@ -50,7 +50,7 @@ def handle():
                 speech = 'What do you want to know about {}'.format(unit_resp)
             else:
                 for qs_elem in qs:
-                    qs_elem_text = qe_elem
+                    qs_elem_text = qs_elem
                     if qs_elem == 'lastPrice':
                         qs_elem_text = "last price"
                     if qs_elem is not None and qs_elem != "":
