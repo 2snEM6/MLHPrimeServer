@@ -47,8 +47,14 @@ def handle():
 
             for unit_resp in json_response['results']:
                 speech = speech + " For " + unit_resp['name'] + " "
-                for qs_elem in qs:
-                    speech = speech + " the " + qs_elem + " is " + unit_resp[qs_elem]
+                if len(qs) == 0:
+                    speech = 'What do you want about {}'.format(unit_resp)
+                else:
+                    for qs_elem in qs:
+                        qs_elem_text = qe_elem
+                        if qs_elem == 'lastPrice':
+                            qs_elem_text = "last price"
+                        speech = speech + " the " + qs_elem_text + " is " + unit_resp[qs_elem]
 
     response_data["speech"] = speech
     js = json.dumps(response_data)
