@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 from flask import json
 from flask import Response
+from flask import make_response
 import requests as re
 
 app = Flask(__name__)
@@ -17,15 +18,16 @@ def hello():
     return 'Hello, world!'
 
 
-@app.route("/handle")
+@app.route("/webhook", methods=['POST'])
 def handle():
     data = {
         'hello': 'world',
         'number': 3
     }
     js = json.dumps(data)
-    resp = Response(js, status=200, mimetype='application/json')
-    return resp
+    r = make_response(js)
+    r.headers['Content-Type'] = 'application/json'
+    return r
 
 
 # Request a la API de STOCK
