@@ -22,7 +22,6 @@ def handle():
     speech = ""
     if request.method == 'POST' and request.headers['Content-Type'] == 'application/json':
         body = request.json
-        print(body)
         action = body['result']['action']
 
         if action == 'SEARCH':
@@ -51,8 +50,6 @@ def handle():
                 for qs_elem in qs:
                     if qs_elem is not None and qs_elem != "":
                         speech = speech + " the {} is {}".format(qs_elem, unit_resp[qs_elem])
-
-    print(speech)
 
     data = {
         "speech": str(speech),
