@@ -48,7 +48,7 @@ def handle():
             speech = speech + " For {} ".format(unit_resp['name'])
             qs = list(filter((lambda x: x != ""),qs))
             if len(qs) == 0:
-                speech = 'What do you want to know about {}'.format(unit_resp)
+                speech = 'What do you want to know about {}'.format(unit_resp['name'])
             else:
                 for qs_elem in qs:
                     qs_elem_text = qs_elem
