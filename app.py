@@ -46,6 +46,7 @@ def handle():
 
         for unit_resp in json_response['results']:
             speech = speech + " For {} ".format(unit_resp['name'])
+            qs = list(filter((lambda x: x != ""),qs))
             if len(qs) == 0:
                 speech = 'What do you want to know about {}'.format(unit_resp)
             else:
