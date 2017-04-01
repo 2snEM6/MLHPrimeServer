@@ -20,40 +20,39 @@ def hello():
 @app.route("/webhook", methods=['POST'])
 def handle():
     speech = ""
-    if request.method == 'POST' and request.headers['Content-Type'] == 'application/json':
-        body = request.json
-        action = body['result']['action']
+    body = request.json
+    action = body['result']['action']
 
-        if action == 'SEARCH':
-            params = body['result']['parameters']
-            qs = []
-            for key in params:
-                if 'Param' in key:
-                    qs.append(params[key])
-            symbols = ''
-            symbol_first = True
-            for key in params:
+    if action == 'SEARCH':
+        params = body['result']['parameters']
+        qs = []
+        for key in params:
+            if 'Param' in key:
+                qs.append(params[key])
+        symbols = ''
+        symbol_first = True
+        for key in params:
 
-                if 'Symbol' in key:
-                    if symbol_first:
-                        symbol_first = False
-                        symbols = symbols + params[key]
-                    else:
-                        symbols = symbols + ',' + params[key]
+            if 'Symbol' in key:
+                if symbol_first:
+                    symbol_first = False
+                    symbols = symbols + params[key]
+                else:
+                    symbols = symbols + ',' + params[key]
 
-            resp = req.get(BASE_URL + GET_QUOTE, params={'key': KEY, 'symbols': symbols})
-            print(resp.text)
-            json_response = resp.json()
+        resp = req.get(BASE_URL + GET_QUOTE, params={'key': KEY, 'symbols': symbols})
+        print(resp.text)
+        json_response = resp.json()
 
-            for unit_resp in json_response['results']:
-                speech = speech + "For {} ".format(unit_resp['name'])
-                for qs_elem in qs:
-                    if qs_elem is not None and qs_elem != "":
-                        speech = speech + " the {} is {}".format(qs_elem, unit_resp[qs_elem])
+        for unit_resp in json_response['results']:
+            speech = speech + "For {} ".format(unit_resp['name'])
+            for qs_elem in qs:
+                if qs_elem is not None and qs_elem != "":
+                    speech = speech + " the {} is {}".format(qs_elem, unit_resp[qs_elem])
 
     data = {
-        "speech": str(speech),
-        "displayText": str(speech),
+        "speech": speech,
+        "displayText": speech,
     }
     js = json.dumps(data)
     r = make_response(js)
