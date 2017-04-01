@@ -17,23 +17,13 @@ def hello():
     return 'Hello, world!'
 
 
-@app.route("/get_quote")
-def get_quote():
-    symbol = request.args.get('symbol')
-    r = re.get(BASE_URL + GET_QUOTE, params={'key': KEY, 'symbols': symbol})
-    json_data = r.json()
-    text = 'The last price of {} is {}'.format(json_data['results']['name'], json_data['results']['lastPrice'])
+@app.route("/handle")
+def handle():
+    return "hola"
 
-    data = {
-        "status": {
-            "code": json_data['status']['code'],
-            "message": json_data['status']['code']
-        },
-        "text": text
-    }
 
-    resp = Response(json.dumps(data), status=200, mimetype='application/json')
-    return resp
+# Request a la API de STOCK
+# r = re.get(BASE_URL + GET_QUOTE, params={'key': KEY, 'symbols': symbol})
 
 
 if __name__ == '__main__':
