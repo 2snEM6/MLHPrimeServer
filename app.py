@@ -50,6 +50,8 @@ def handle():
                     if qs_elem is not None and qs_elem != "":
                         speech = speech + " the {} is {}".format(qs_elem, unit_resp[qs_elem])
 
+    print(speech)
+
     data = {
         "speech": str(speech),
         "displayText": str(speech),
