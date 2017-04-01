@@ -22,14 +22,14 @@ def get_quote():
     symbol = request.args.get('symbol')
     r = re.get(BASE_URL + GET_QUOTE, params={'key': KEY, 'symbols': symbol})
     json_data = r.json()
-    text = "The last price of"
+    text = 'The last price of {} is {}'.format(json_data['results']['name'], json_data['results']['lastPrice'])
 
     data = {
         "status": {
             "code": json_data['status']['code'],
             "message": json_data['status']['code']
         },
-        "text": 'The last price of' + json_data['results']['name'] + 'is ' + str(json_data['results']['lastPrice'])
+        "text": text
     }
 
     resp = Response(json.dumps(data), status=200, mimetype='application/json')
