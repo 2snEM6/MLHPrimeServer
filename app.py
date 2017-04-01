@@ -42,6 +42,7 @@ def handle():
                         symbols = symbols + ',' + params[key]
 
             resp = req.get(BASE_URL + GET_QUOTE, params={'key': KEY, 'symbols': symbols})
+            print(resp.text)
             json_response = resp.json()
 
             for unit_resp in json_response['results']:
