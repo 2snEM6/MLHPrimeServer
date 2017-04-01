@@ -19,7 +19,13 @@ def hello():
 
 @app.route("/handle")
 def handle():
-    return "hola"
+    data = {
+        'hello': 'world',
+        'number': 3
+    }
+    js = json.dumps(data)
+    resp = Response(js, status=200, mimetype='application/json')
+    return resp
 
 
 # Request a la API de STOCK
