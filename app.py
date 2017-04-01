@@ -51,8 +51,8 @@ def handle():
                         speech = speech + " the {} is {}".format(qs_elem, unit_resp[qs_elem])
 
     data = {
-        "speech": speech,
-        "displayText": speech,
+        "speech": "hola",
+        "displayText": "hola",
     }
     js = json.dumps(data)
     r = make_response(js)
