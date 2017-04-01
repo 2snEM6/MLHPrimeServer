@@ -46,9 +46,10 @@ def handle():
             json_response = resp.json()
 
             for unit_resp in json_response['results']:
-                speech = speech + " For " + unit_resp['name'] + " "
+                speech = speech + " For {} ".format(unit_resp['name'])
                 for qs_elem in qs:
-                    speech = speech + " the " + qs_elem + " is " + unit_resp[qs_elem]
+                    if qs_elem is not None and qs_elem != "":
+                        speech = speech + " the {} is {}".format(qs_elem, unit_resp[qs_elem])
 
     response_data["speech"] = speech
     js = json.dumps(response_data)
