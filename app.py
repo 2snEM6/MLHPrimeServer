@@ -51,8 +51,11 @@ def handle():
                     if qs_elem is not None and qs_elem != "":
                         speech = speech + " the {} is {}".format(qs_elem, unit_resp[qs_elem])
 
-    response_data["speech"] = speech
-    js = json.dumps(response_data)
+    data = {
+        "speech": speech,
+        "displayText": speech,
+    }
+    js = json.dumps(data)
     r = make_response(js)
     r.headers['Content-Type'] = 'application/json'
     return r
