@@ -47,7 +47,7 @@ def handle():
             json_response = resp.json()
 
             for param in params:
-                speech = speech + " the " + param + " is " + rest.text
+                speech = speech + " the " + param + " is " + resp.text
 
     response_data["speech"] = speech
     js = json.dumps(response_data)
