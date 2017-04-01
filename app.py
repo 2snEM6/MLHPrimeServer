@@ -44,11 +44,18 @@ def handle():
         print(resp.text)
         json_response = resp.json()
 
-        for unit_resp in json_response['results']:
-            speech = speech + "For {} ".format(unit_resp['name'])
-            for qs_elem in qs:
-                if qs_elem is not None and qs_elem != "":
-                    speech = speech + " the {} is {}".format(qs_elem, unit_resp[qs_elem])
+            for unit_resp in json_response['results']:
+                speech = speech + " For {} ".format(unit_resp['name'])
+                if len(qs) == 0:
+                    speech = 'What do you want about {}'.format(unit_resp)
+                else:
+                    for qs_elem in qs:
+
+                        qs_elem_text = qe_elem
+                        if qs_elem == 'lastPrice':
+                            qs_elem_text = "last price"
+                        if qs_elem is not None and qs_elem != "":
+                            speech = speech + " the {} is {}".format(qs_elem_text, unit_resp[qs_elem])
 
     data = {
         "speech": speech,
