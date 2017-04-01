@@ -1,5 +1,7 @@
 from flask import Flask
 from flask import request
+from flask import json
+from flask import Response
 import requests as re
 
 app = Flask(__name__)
@@ -19,7 +21,19 @@ def hello():
 def get_quote():
     symbol = request.args.get('symbol')
     r = re.get(BASE_URL + GET_QUOTE, params={'key': KEY, 'symbols': symbol})
-    return r.text
+    json_data = r.json()
+    text = "The last price of"
+
+    data = {
+        "status": {
+            "code": json_data['status']['code'],
+            "message": json_data['status']['code']
+        },
+        "text": 'The last price of' + json_data['results']['name'] + 'is ' + str(json_data['results']['lastPrice'])
+    }
+
+    resp = Response(json.dumps(data), status=200, mimetype='application/json')
+    return resp
 
 
 if __name__ == '__main__':
